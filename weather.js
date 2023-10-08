@@ -6,10 +6,16 @@ import {
   printHelper,
   printSuccess,
 } from './services/log.service.js'
+import { getWeather } from './services/api.service.js'
 
-const saveToken = async (arg) => {
+const saveToken = async (token) => {
+  if (!token.length) {
+    printError('Не передан token')
+    return
+  }
+
   try {
-    await saveKeyValue('token', arg)
+    await saveKeyValue('token', token)
     printSuccess('Токен сохранён')
   } catch (error) {
     printError(error.message)
@@ -30,6 +36,8 @@ const initCLI = () => {
   if (args.t) {
     return saveToken(args.t)
   }
+
+  return getWeather('Moscow')
 
   // return weather
 }
