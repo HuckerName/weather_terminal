@@ -22,11 +22,32 @@ const saveToken = async (token) => {
   }
 }
 
+const getForecast = async () => {
+  try {
+    const weather = await getWeather(process.env.CITY ?? 'moscow')
+    console.log(weather) // красивый вывод
+  } catch (error) {
+    switch (error?.response?.status) {
+      case 404: {
+        printError('Неверно указан город')
+        break
+      }
+      case 401: {
+        printError('Неверно указан token')
+        break
+      }
+      default: {
+        printError(error.message)
+      }
+    }
+  }
+}
+
 const initCLI = () => {
   const args = getArgs(process.argv)
 
   if (args.h) {
-    printHelper()
+    return printHelper()
   }
 
   if (args.s) {
@@ -37,9 +58,7 @@ const initCLI = () => {
     return saveToken(args.t)
   }
 
-  return getWeather('Moscow')
-
-  // return weather
+  return getForecast()
 }
 
 initCLI()
