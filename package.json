@@ -1,15 +1,14 @@
 {
-  "name": "cli",
-  "version": "1.0.0",
-  "description": "cli for weather",
+  "name": "cli-weather-terminal",
+  "version": "1.0.2",
+  "description": "CLI for getting weather",
   "main": "weather.js",
   "bin": {
     "weather": "weather.js"
   },
   "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node weather.js"
   },
   "keywords": [
     "cli",
@@ -17,10 +16,10 @@
   ],
   "author": "user",
   "license": "ISC",
-  "homepage": "https://t.me/ii_user_ii",
+  "homepage": "https://github.com/HuckerName",
   "repository": {
     "type": "git",
-    "url": "https://t.me/ii_user_ii"
+    "url": "https://github.com/HuckerName/weather_terminal"
   },
   "bugs": {
     "url": "https://t.me/ii_user_ii",
@@ -29,9 +28,7 @@
   "dependencies": {
     "axios": "^1.5.1",
     "chalk": "^5.3.0",
+    "cli-weather-terminal": "^1.0.2",
     "dedent-js": "^1.0.1"
-  },
-  "man": [
-    "./README.md"
-  ]
+  }
 }

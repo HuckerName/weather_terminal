@@ -1,6 +1,5 @@
 import chalk from 'chalk'
 import dedent from 'dedent-js'
-import { promises } from 'fs'
 
 const printError = (error) => {
   console.log(`${chalk.bgRed(' ERROR ')} ${error}`)
@@ -11,11 +10,13 @@ const printSuccess = (msg) => {
 }
 
 const printHelper = async () => {
-  const instruction = await promises.readFile('./README.md')
-
   console.log(
     dedent`${chalk.black(chalk.bgMagentaBright(' HELP '))}
-    ${instruction}`
+    Без параметров - вывод погоды
+    -s [CITY] для установки города
+    -h для вывода помощи
+    -t [API_KEY] для сохранения токена
+    `
   )
 }
 
@@ -36,7 +37,7 @@ const printWeather = (data, icon) => {
 
   const strWindSpeed = `${chalk.magentaBright('Скорость ветра')}: ${chalk.bold(
     Math.floor(data.wind.speed)
-  )}`
+  )} м/с`
 
   console.log(dedent`${strCity} 
   ${strDescription}
