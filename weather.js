@@ -56,6 +56,10 @@ const getForecast = async () => {
       return printError('Неверно указан token')
     }
 
+    if (error?.code === 'EAI_AGAIN') {
+      return printError('Потеряно соеденение с интернетом')
+    }
+
     printError(error.message)
   }
 }
