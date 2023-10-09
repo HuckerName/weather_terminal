@@ -13,9 +13,10 @@ const printHelper = async () => {
   console.log(
     dedent`${chalk.black(chalk.bgMagentaBright(' HELP '))}
     Без параметров - вывод погоды
-    -s [CITY] для установки города
-    -h для вывода помощи
-    -t [API_KEY] для сохранения токена
+    ${chalk.bold('-s [CITY]')} для установки города
+    ${chalk.bold('-h')} для вывода помощи
+    ${chalk.bold('-t [API_KEY] ')} для сохранения токена
+    https://home.openweathermap.org/api_keys - создать токен
     `
   )
 }

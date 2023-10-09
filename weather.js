@@ -56,15 +56,15 @@ const getForecast = async () => {
       return printError('Неверно указан token')
     }
 
-    if (error?.response?.status === 40) {
-      return printError('Неверно указан token')
+    if (error?.response?.status === 400) {
+      return printError('Сохраните город командой -s [CITY]')
     }
 
     if (error?.code === 'EAI_AGAIN') {
       return printError('Потеряно соеденение с интернетом')
     }
 
-    printError(error.message)
+    return printError(error.message)
   }
 }
 
@@ -83,7 +83,7 @@ const initCLI = () => {
     return saveToken(args.t)
   }
 
-  getForecast()
+  return getForecast()
 }
 
 initCLI()
