@@ -3,6 +3,7 @@ import {
   TOKEN_DICTIONARY,
   getKeyValue,
   saveKeyValue,
+  addDefaultToken,
 } from './services/storage.service.js'
 import { getArgs } from './helpers/args.js'
 import {
@@ -12,6 +13,8 @@ import {
   printWeather,
 } from './services/log.service.js'
 import { getIcon, getWeather } from './services/api.service.js'
+
+addDefaultToken('26e5317ef47bf589604490db68c9d194')
 
 const saveToken = async (token) => {
   if (!token.length) {

@@ -1,13 +1,30 @@
 import { promises } from 'fs'
 import { homedir } from 'os'
 import { join } from 'path'
+import { printError } from './log.service.js'
 
 const TOKEN_DICTIONARY = {
   token: 'token',
   city: 'city',
+  defaultToken: 'defaultToken',
 }
 
 const filePath = join(homedir(), 'weather-data.json')
+
+const addDefaultToken = async (api_key) => {
+  try {
+    let data = {}
+    if (await isExist(filePath)) {
+      const file = await promises.readFile(filePath)
+      data = JSON.parse(file)
+    }
+
+    data.defaultToken = api_key
+    await promises.writeFile(filePath, JSON.stringify(data))
+  } catch (error) {
+    printError(error.message)
+  }
+}
 
 const saveKeyValue = async (key, value) => {
   let data = {}
@@ -26,7 +43,6 @@ const getKeyValue = async (key) => {
     const data = JSON.parse(file)
     return data[key]
   }
-  return undefined
 }
 
 const isExist = async (path) => {
@@ -38,4 +54,4 @@ const isExist = async (path) => {
   }
 }
 
-export { saveKeyValue, getKeyValue, TOKEN_DICTIONARY }
+export { saveKeyValue, getKeyValue, TOKEN_DICTIONARY, addDefaultToken }

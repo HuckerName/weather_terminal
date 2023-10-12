@@ -11,24 +11,24 @@ const printSuccess = (msg) => {
 
 const printHelper = async () => {
   console.log(
-    dedent`${chalk.black(chalk.bgMagentaBright(' HELP '))}
-    Без параметров - вывод погоды
-    ${chalk.bold('-s [CITY]')} для установки города
-    ${chalk.bold('-h')} для вывода помощи
-    ${chalk.bold('-t [API_KEY] ')} для сохранения токена
+    dedent`${chalk.black.bgMagentaBright(' HELP ')}
+    ${chalk.bold('Без параметров')} - вывод погоды
+    ${chalk.bold('-s [CITY]')} - для установки города
+    ${chalk.bold('-h')} - для вывода помощи
+    ${chalk.bold('-t [API_KEY] ')} - для сохранения своего токена
     https://home.openweathermap.org/api_keys - создать токен
     `
   )
 }
 
 const printWeather = (data, icon) => {
-  const strCity = `${chalk.bold(
-    chalk.black(chalk.bgBlueBright(' WEATHER '))
-  )} Погода в городе ${chalk.cyan(chalk.italic(data.name))}`
+  const strCity = `${chalk.bold.black.bgBlueBright(
+    ' WEATHER '
+  )} Погода в ${chalk.cyan(data.name)}`
 
   const strDescription = `${icon}  ${data.weather[0].description}`
 
-  const strTemp = `${chalk.greenBright('Температура')}: ${chalk.bold(
+  const strTemp = `${chalk.yellowBright('Температура')}: ${chalk.bold(
     Math.floor(data.main.temp) + '°'
   )} (ощущается как ${chalk.bold(Math.floor(data.main.feels_like) + '°')})`
 
