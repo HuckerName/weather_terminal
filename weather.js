@@ -4,6 +4,7 @@ import {
   getKeyValue,
   saveKeyValue,
   addDefaultToken,
+  deleteToken,
 } from './services/storage.service.js'
 import { getArgs } from './helpers/args.js'
 import {
@@ -84,6 +85,10 @@ const initCLI = () => {
 
   if (args.t) {
     return saveToken(args.t)
+  }
+
+  if (args.d) {
+    return deleteToken()
   }
 
   return getForecast()

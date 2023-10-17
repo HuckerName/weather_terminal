@@ -16,6 +16,7 @@ const printHelper = async () => {
     ${chalk.bold('-s [CITY]')} - для установки города
     ${chalk.bold('-h')} - для вывода помощи
     ${chalk.bold('-t [API_KEY] ')} - для сохранения своего токена
+    ${chalk.bold('-d')} - для удаления собственного токена
     https://home.openweathermap.org/api_keys - создать токен
     `
   )
