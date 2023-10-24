@@ -54,7 +54,7 @@ const deleteToken = async () => {
       if (data.token) {
         delete data.token
 
-        writeFileSync(filePath, 's')
+        writeFileSync(filePath, '')
         appendFileSync(filePath, JSON.stringify(data))
         return printSuccess('Токен удален')
       }
