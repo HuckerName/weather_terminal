@@ -72,26 +72,30 @@ const getForecast = async () => {
   }
 }
 
-const initCLI = () => {
-  const args = getArgs(process.argv)
+const initCLI = async () => {
+  try {
+    const args = getArgs(process.argv)
 
-  if (args.h) {
-    return printHelper()
+    if (args.h) {
+      return printHelper()
+    }
+
+    if (args.s) {
+      return await saveCity(args.s)
+    }
+
+    if (args.t) {
+      return await saveToken(args.t)
+    }
+
+    if (args.d) {
+      return await deleteToken()
+    }
+
+    return await getForecast()
+  } catch (error) {
+    printError(error.message)
   }
-
-  if (args.s) {
-    return saveCity(args.s)
-  }
-
-  if (args.t) {
-    return saveToken(args.t)
-  }
-
-  if (args.d) {
-    return deleteToken()
-  }
-
-  return getForecast()
 }
 
 initCLI()

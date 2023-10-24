@@ -1,4 +1,4 @@
-import { promises } from 'fs'
+import { writeFileSync, appendFileSync, promises } from 'fs'
 import { homedir } from 'os'
 import { join } from 'path'
 import { printError, printSuccess } from './log.service.js'
@@ -13,7 +13,11 @@ const filePath = join(homedir(), 'weather-data.json')
 
 const addDefaultToken = async (api_key) => {
   try {
-    saveKeyValue(TOKEN_DICTIONARY.defaultToken, api_key)
+    const data = await getData(filePath)
+
+    if (!data?.defaultToken) {
+      await saveKeyValue(TOKEN_DICTIONARY.defaultToken, api_key)
+    }
   } catch (error) {
     printError(error.message)
   }
@@ -26,13 +30,19 @@ const saveKeyValue = async (key, value) => {
   }
 
   data[key] = value
-  await promises.writeFile(filePath, JSON.stringify(data))
+
+  writeFileSync(filePath, '')
+  appendFileSync(filePath, JSON.stringify(data))
 }
 
 const getKeyValue = async (key) => {
-  if (await isExist(filePath)) {
-    const data = await getData(filePath)
-    return data[key]
+  try {
+    if (await isExist(filePath)) {
+      const data = await getData(filePath)
+      return data[key]
+    }
+  } catch (error) {
+    printError(error.message)
   }
 }
 
@@ -44,15 +54,15 @@ const deleteToken = async () => {
       if (data.token) {
         delete data.token
 
-        await promises.writeFile(filePath, '')
-        await promises.writeFile(filePath, JSON.stringify(data))
+        writeFileSync(filePath, 's')
+        appendFileSync(filePath, JSON.stringify(data))
         return printSuccess('Токен удален')
       }
     }
 
     return printError('Сохраните токен -t [API_KEY]')
   } catch (e) {
-    printError(e)
+    printError(e.message)
   }
 }
 
@@ -65,7 +75,7 @@ const getData = async (path) => {
       return data
     }
   } catch (e) {
-    console.log(e.message)
+    printError(e.message)
   }
 }
 

@@ -9,7 +9,7 @@ const printSuccess = (msg) => {
   console.log(`${chalk.bgGreen(' Success ')} ${msg}`)
 }
 
-const printHelper = async () => {
+const printHelper = () => {
   console.log(
     dedent`${chalk.black.bgMagentaBright(' HELP ')}
     ${chalk.bold('Без параметров')} - вывод погоды
