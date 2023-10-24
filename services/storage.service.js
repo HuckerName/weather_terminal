@@ -2,6 +2,7 @@ import { writeFileSync, appendFileSync, promises } from 'fs'
 import { homedir } from 'os'
 import { join } from 'path'
 import { printError, printSuccess } from './log.service.js'
+import config from 'config'
 
 const TOKEN_DICTIONARY = {
   token: 'token',
@@ -15,7 +16,7 @@ const addDefaultToken = async (api_key) => {
   try {
     const data = await getData(filePath)
 
-    if (!data?.defaultToken) {
+    if (!data?.defaultToken && !data?.token) {
       await saveKeyValue(TOKEN_DICTIONARY.defaultToken, api_key)
     }
   } catch (error) {
@@ -53,6 +54,7 @@ const deleteToken = async () => {
 
       if (data.token) {
         delete data.token
+        data['defaultToken'] = config.get('WEATHER_TOKEN')
 
         writeFileSync(filePath, '')
         appendFileSync(filePath, JSON.stringify(data))
@@ -63,6 +65,21 @@ const deleteToken = async () => {
     return printError('Сохраните токен -t [API_KEY]')
   } catch (e) {
     printError(e.message)
+  }
+}
+
+const deleteDefaultToken = async (token) => {
+  try {
+    const data = await getData(filePath)
+    if (data?.defaultToken) {
+      delete data.defaultToken
+      data['token'] = token
+
+      writeFileSync(filePath, '')
+      appendFileSync(filePath, JSON.stringify(data))
+    }
+  } catch (error) {
+    printError(error.message)
   }
 }
 
@@ -94,4 +111,5 @@ export {
   TOKEN_DICTIONARY,
   addDefaultToken,
   deleteToken,
+  deleteDefaultToken,
 }

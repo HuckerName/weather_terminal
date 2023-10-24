@@ -5,6 +5,7 @@ import {
   saveKeyValue,
   addDefaultToken,
   deleteToken,
+  deleteDefaultToken,
 } from './services/storage.service.js'
 import { getArgs } from './helpers/args.js'
 import {
@@ -14,8 +15,9 @@ import {
   printWeather,
 } from './services/log.service.js'
 import { getIcon, getWeather } from './services/api.service.js'
+import config from 'config'
 
-addDefaultToken('26e5317ef47bf589604490db68c9d194')
+addDefaultToken(config.get('WEATHER_TOKEN'))
 
 const saveToken = async (token) => {
   if (!token.length) {
@@ -24,7 +26,8 @@ const saveToken = async (token) => {
   }
 
   try {
-    await saveKeyValue(TOKEN_DICTIONARY.token, token)
+    await deleteDefaultToken(token)
+
     printSuccess('Токен сохранён')
   } catch (error) {
     printError(error.message)
