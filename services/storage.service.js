@@ -2,12 +2,12 @@ import { writeFileSync, appendFileSync, promises } from 'fs'
 import { homedir } from 'os'
 import { join } from 'path'
 import { printError, printSuccess } from './log.service.js'
-import config from 'config'
 
 const TOKEN_DICTIONARY = {
   token: 'token',
   city: 'city',
   defaultToken: 'defaultToken',
+  token: '26e5317ef47bf589604490db68c9d194',
 }
 
 const filePath = join(homedir(), 'weather-data.json')
@@ -54,7 +54,7 @@ const deleteToken = async () => {
 
       if (data.token) {
         delete data.token
-        data['defaultToken'] = config.get('WEATHER_TOKEN')
+        data['defaultToken'] = TOKEN_DICTIONARY.token
 
         writeFileSync(filePath, '')
         appendFileSync(filePath, JSON.stringify(data))

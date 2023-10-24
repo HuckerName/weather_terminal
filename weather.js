@@ -15,9 +15,8 @@ import {
   printWeather,
 } from './services/log.service.js'
 import { getIcon, getWeather } from './services/api.service.js'
-import config from 'config'
 
-addDefaultToken(config.get('WEATHER_TOKEN'))
+addDefaultToken(TOKEN_DICTIONARY.token)
 
 const saveToken = async (token) => {
   if (!token.length) {

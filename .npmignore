@@ -1,2 +1,7 @@
 /.vscode
-/node_modules 
+/node_modules
+/dist
+.npmignore
+.gitignore
+/config
+package-lock.json
