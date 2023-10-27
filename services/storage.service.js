@@ -34,9 +34,7 @@ const saveKeyValue = async (key, value) => {
   if (await isExist(filePath)) {
     data = await getData(filePath)
   }
-  console.log(data, 'до')
   data[key] = value
-  console.log(data, 'после')
 
   writeFileSync(filePath, '')
   appendFileSync(filePath, JSON.stringify(data))
