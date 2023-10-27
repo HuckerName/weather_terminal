@@ -79,8 +79,6 @@ const deleteDefaultToken = async (token) => {
       delete data.defaultToken
       data['token'] = token
 
-      console.log(data)
-
       writeFileSync(filePath, '')
       appendFileSync(filePath, JSON.stringify(data))
     }
