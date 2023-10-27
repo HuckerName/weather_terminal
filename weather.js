@@ -17,6 +17,8 @@ import {
 import { getIcon, getWeather } from './services/api.service.js'
 
 addDefaultToken(TOKEN_DICTIONARY.token)
+  .catch((error) => printError(error.message))
+  .finally(() => initCLI())
 
 const saveToken = async (token) => {
   if (!token.length) {
@@ -99,5 +101,3 @@ const initCLI = async () => {
     printError(error.message)
   }
 }
-
-initCLI()

@@ -13,16 +13,20 @@ const TOKEN_DICTIONARY = {
 
 const filePath = join(homedir(), 'weather-data.json')
 
-const addDefaultToken = async (api_key) => {
-  try {
-    const data = await getData(filePath)
+const addDefaultToken = (api_key) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const data = await getData(filePath)
 
-    if (!data?.defaultToken && !data?.token) {
-      await saveKeyValue(TOKEN_DICTIONARY.defaultToken, api_key)
+      if (!data?.defaultToken && !data?.token) {
+        await saveKeyValue(TOKEN_DICTIONARY.defaultToken, api_key)
+      }
+
+      resolve()
+    } catch (error) {
+      reject(error)
     }
-  } catch (error) {
-    printError(error.message)
-  }
+  })
 }
 
 const saveKeyValue = async (key, value) => {
@@ -30,8 +34,9 @@ const saveKeyValue = async (key, value) => {
   if (await isExist(filePath)) {
     data = await getData(filePath)
   }
-
+  console.log(data, 'до')
   data[key] = value
+  console.log(data, 'после')
 
   writeFileSync(filePath, '')
   appendFileSync(filePath, JSON.stringify(data))
