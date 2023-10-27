@@ -29,7 +29,7 @@ const getIcon = (icon) => {
 const getWeather = async (city) => {
   const token =
     process.env.TOKEN ??
-    (await getKeyValue(TOKEN_DICTIONARY.token)) ??
+    (await getKeyValue(TOKEN_DICTIONARY.tokenName)) ??
     (await getKeyValue(TOKEN_DICTIONARY.defaultToken))
 
   const { data } = await axios.get(

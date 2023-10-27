@@ -8,6 +8,7 @@ const TOKEN_DICTIONARY = {
   city: 'city',
   defaultToken: 'defaultToken',
   token: '26e5317ef47bf589604490db68c9d194',
+  tokenName: 'token',
 }
 
 const filePath = join(homedir(), 'weather-data.json')
@@ -74,6 +75,8 @@ const deleteDefaultToken = async (token) => {
     if (data?.defaultToken) {
       delete data.defaultToken
       data['token'] = token
+
+      console.log(data)
 
       writeFileSync(filePath, '')
       appendFileSync(filePath, JSON.stringify(data))
